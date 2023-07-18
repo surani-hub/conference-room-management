@@ -2,35 +2,24 @@ package com.crm.conference.room.management.controller;
 
 // Should be able to register new user.
 
-import com.crm.conference.room.management.entity.Building;
-import com.crm.conference.room.management.entity.ConferenceRoom;
-import com.crm.conference.room.management.entity.User;
 import com.crm.conference.room.management.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-@RestController
+@RestController("/users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-
-    // https:localhost:8080/register
-    @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user){
-        return new ResponseEntity<>(userService.register(user), HttpStatus.CREATED);
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    // Users should be able to list down all the conference rooms available in any building.
-    // Eg:Alpha building has conference rooms with names: a1, a2, a3, a4 etc.
-
-    @GetMapping("/listconrooms")
-    public List<ConferenceRoom> getConferenceRoomsByStatus(@RequestParam("buildingName") String buildingName){
-
+    @PostMapping
+    public ResponseEntity<?> registerUser(@RequestParam("userId") String userId) {
+        userService.registerUser(userId);
+        return ResponseEntity.ok("User registered successfully");
     }
 }

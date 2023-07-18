@@ -5,19 +5,23 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "buildings")
+@Table(name = "floors")
 @Data
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Building {
+public class Floor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "building_name", nullable = false)
-    private String buildingName;
+    @Column(nullable = false)
+    private int number;
+
+    @ManyToOne
+    @JoinColumn(name = "building_id", nullable = false)
+    private Building building;
 
 }

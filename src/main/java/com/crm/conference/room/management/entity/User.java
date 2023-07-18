@@ -1,6 +1,6 @@
 package com.crm.conference.room.management.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -19,14 +19,27 @@ User - id, bookingStatus
 
 */
 @Entity
-@Table(name ="user")
+@Table(name ="users")
 @Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
-    private String email;
-    private String phone;
+    private Long id;
+
+    @Column(name = "user_id", nullable = false)
+    private String userId;
+
+//    @Column(name = "user_name")
+//    private String name;
+//
+//    @Column(name = "user_email")
+//    private String email;
+//
+//    @Column(name = "user_contact")
+//    private String phone;
 }
